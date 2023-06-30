@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'partials/sidebar.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final String greeting;
 
-  HomePage() : greeting = _getGreeting();
+  bool isDarkModeEnabled = false;
+
+  _HomePageState() : greeting = _getGreeting();
 
   static String _getGreeting() {
     final hour = DateTime.now().hour;

@@ -1,50 +1,75 @@
+// Impor library yang diperlukan
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+// Impor model Anggota
 import '../../model/anggota.dart';
+
+// Impor UI Sidebar
 import '../partials/sidebar.dart';
 
+// Buat Class AnggotaListPage untuk menampilkan halaman list anggota
 class AnggotaListPage extends StatefulWidget {
   @override
   _AnggotaListPageState createState() => _AnggotaListPageState();
 }
 
+// Buat Class _AnggotaListPageState untuk membuat state dari AnggotaListPage
 class _AnggotaListPageState extends State<AnggotaListPage> {
+
+  // Deklarasi variabel untuk menampung data anggota
   List<Anggota> anggotaList = [];
 
+  // Method untuk mengambil data anggota dari API
   Future<List<Anggota>> fetchAnggotaList() async {
+    // Kirim request ke API
     final response = await http
         .get(Uri.parse('https://649443970da866a953677178.mockapi.io/anggota'));
+
+    // Jika response sukses
     if (response.statusCode == 200) {
+      // Ubah response body menjadi list
       final List<dynamic> responseData = json.decode(response.body);
+      // Map response data ke model Anggota
       return responseData.map((data) => Anggota.fromJson(data)).toList();
     } else {
-      throw Exception('Failed to fetch anggota list');
+      // Jika response gagal, throw error
+      throw Exception('Data anggota tidak dapat diambil');
     }
   }
 
+  // Method untuk merefresh data anggota
   Future<void> refreshAnggotaList() async {
     // Fetch anggota list from API
     final List<Anggota> list = await fetchAnggotaList();
+    // Set state untuk refresh UI
     setState(() {
       anggotaList = list;
     });
   }
 
+  // Method untuk menghapus anggota
   Future<void> deleteAnggota(String id) async {
+    // Kirim request ke API
     final response = await http.delete(
       Uri.parse('https://649443970da866a953677178.mockapi.io/anggota/$id'),
     );
+    // Jika response sukses
     if (response.statusCode == 200) {
       setState(() {
+        // Hapus anggota dari list
         anggotaList.removeWhere((anggota) => anggota.id == id);
       });
     } else {
-      throw Exception('Failed to delete anggota');
+      // Jika response gagal, throw error
+      throw Exception('Gagal menghapus anggota');
     }
   }
 
+  // Method untuk menambah anggota
   Future<void> addAnggota(String nama, int nim, String kelas) async {
+    // Kirim request ke API
     final response = await http.post(
       Uri.parse('https://649443970da866a953677178.mockapi.io/anggota'),
       body: {
@@ -53,14 +78,18 @@ class _AnggotaListPageState extends State<AnggotaListPage> {
         'kelas': kelas,
       },
     );
+
+    // Jika response sukses
     if (response.statusCode == 201) {
+      // Ubah response body menjadi objek Anggota
       final responseData = json.decode(response.body);
       final newAnggota = Anggota.fromJson(responseData);
+      // Tambahkan anggota ke database
       setState(() {
         anggotaList.add(newAnggota);
       });
     } else {
-      throw Exception('Failed to add anggota');
+      throw Exception('Gagal menambah anggota');
     }
   }
 
@@ -74,6 +103,7 @@ class _AnggotaListPageState extends State<AnggotaListPage> {
     });
   }
 
+  // Buat UI untuk menampilkan list anggota
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,6 +121,7 @@ class _AnggotaListPageState extends State<AnggotaListPage> {
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  // Tombol Hapus
                   IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {
@@ -117,6 +148,7 @@ class _AnggotaListPageState extends State<AnggotaListPage> {
                       );
                     },
                   ),
+                  // Tombol Detail
                   IconButton(
                     icon: Icon(Icons.info),
                     onPressed: () {
@@ -130,6 +162,7 @@ class _AnggotaListPageState extends State<AnggotaListPage> {
                       );
                     },
                   ),
+                  // Tombol Edit
                   IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: () {
@@ -157,12 +190,15 @@ class _AnggotaListPageState extends State<AnggotaListPage> {
           );
         },
       ),
+
+      // Tombol tambah anggota
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => AnggotaAddPage()),
           ).then((value) {
+            // Jika halaman tambah anggota ditutup, maka refresh list
             if (value != null && value is Map) {
               final String nama = value['nama'];
               final int nim = value['nim'];
@@ -177,6 +213,7 @@ class _AnggotaListPageState extends State<AnggotaListPage> {
   }
 }
 
+// Halaman untuk melihat detail anggota
 class AnggotaDetailPage extends StatelessWidget {
   final Anggota anggota;
 
@@ -193,6 +230,7 @@ class AnggotaDetailPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            // Tampilkan data anggota
             Text('Nama: ${anggota.nama}'),
             Text('NIM: ${anggota.nim}'),
             Text('Kelas: ${anggota.kelas}'),

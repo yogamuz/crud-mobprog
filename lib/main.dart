@@ -4,7 +4,6 @@ import 'pages/anggota/list.dart';
 import 'pages/auth/login_form.dart';
 import 'pages/auth/register_form.dart';
 import 'pages/home.dart';
-import 'pages/user/add.dart';
 import 'pages/about.dart';
 
 void main() {
@@ -15,20 +14,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Your App Name',
+      title: 'MyOrmawa - Flutter',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        // useMaterial3: true,
+        useMaterial3: true,
+        // Switch
       ),
-      initialRoute: '/',
+
+      initialRoute: '/', // Halaman pertama kali yang dibuka
+
+      // Daftar route aplikasi
       routes: {
-        '/': (context) => LoginForm(),
-        '/register': (context) => RegisterForm(),
-        '/home': (context) => HomePage(),
-        '/user/add': (context) => UserAddPage(),
-        '/anggota/list': (context) => AnggotaListPage(),
-        '/about' : (context) => AboutPage(),
-        '/anggota/add': (context) => AnggotaAddPage(),
+        '/': (context)              => LoginForm(),
+        '/register': (context)      => RegisterForm(),
+        '/home': (context)          => HomePage(),
+        '/anggota/list': (context)  => AnggotaListPage(),
+        '/about' : (context)        => AboutPage(),
+        '/anggota/add': (context)   => AnggotaAddPage(),
       },
     );
   }

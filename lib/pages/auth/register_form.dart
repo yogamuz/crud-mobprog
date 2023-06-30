@@ -98,7 +98,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 decoration: InputDecoration(labelText: 'Username'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your username';
+                    return 'Mohon masukkan username';
                   }
                   return null;
                 },
@@ -109,7 +109,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 decoration: InputDecoration(labelText: 'Password'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
+                    return 'Mohon masukkan password';
                   }
                   return null;
                 },

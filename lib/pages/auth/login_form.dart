@@ -14,17 +14,24 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController passwordController = TextEditingController();
 
   Future<Auth> login(String username, String password) async {
+    // Kirim data ke API
     final response = await http.get(Uri.parse(
         'https://649443970da866a953677178.mockapi.io/users?username=$username&password=$password'));
+
+    // Cek status response
     if (response.statusCode == 200) {
       final List<dynamic> responseData = json.decode(response.body);
+
+      // Cek apakah responseData memiliki isi
       if (responseData.isNotEmpty) {
         return Auth.fromJson(responseData[0]);
       } else {
-        throw Exception('Invalid username or password');
+        throw Exception('Username atau password salah');
       }
+
+      // return Auth.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to login');
+      throw Exception('Gagal login');
     }
   }
 
