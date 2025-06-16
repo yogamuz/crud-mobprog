@@ -108,7 +108,7 @@ class _AnggotaListPageState extends State<AnggotaListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daftar Anggota'),
+        title: Text('Daftar Anggota Mahasiswa'),
       ),
       drawer: Sidebar(),
       body: ListView.builder(

@@ -15,7 +15,7 @@ class AboutPage extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: 16.0),
             Text(
-              'Aplikasi ini dibuat untuk memenuhi tugas mata kuliah Pemrograman Mobile dan dibuat dengan menggunakan Flutter dan Dart oleh Kelompok 1',
+              'Aplikasi ini dibuat untuk memenuhi tugas mata kuliah Pemrograman Mobile dan dibuat dengan menggunakan Flutter dan Dart oleh Kelompok 2',
             ),
             SizedBox(height: 16.0),
           ],

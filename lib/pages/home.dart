@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
-                'Selamat datang di aplikasi MyOrmawa, aplikasi ini dibuat untuk mengelola data anggota ormawa',
+                'Selamat datang di aplikasi MyOrmawa, aplikasi ini dibuat untuk mengelola data Organisasi Mahasiswa (Ormawa) di kampus Anda. Aplikasi ini memungkinkan Anda untuk menambah, mengedit dan menghapus data anggota Ormawa dengan mudah.',
                 textAlign: TextAlign.center,
               ),
             ),
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
             // Tombol untuk tambah data
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/anggota/add');
+                Navigator.pushNamed(context, '/anggota/list');
               },
               child: Text('Tambah Data'),
             ),
